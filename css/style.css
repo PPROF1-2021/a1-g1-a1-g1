@@ -3,8 +3,8 @@
     src: url('../fonts/VarelaRound-Regular.ttf');
 }
 
-:root {
-    --pripary-color: #00324A;
+:root{
+    --pripary-color: #00324A
 }
 
 * {
@@ -15,9 +15,12 @@
 }
 
 
+body#homeBody{
+    height: 100vh;
+    overflow: hidden;
+}
+
 /* Empieza pagina de inicio */
-
-
 /* Navbar */
 
 .navbar {
@@ -51,36 +54,28 @@
     transition: transform .3s ease;
 }
 
-.navlink::after {
-    display: none !important;
-}
-
 .navlink:hover::before {
     transform: scaleX(1);
     transform-origin: left;
 }
 
-
 /* Sobreescritura para bootstrap 4*/
-
-.bg-primary {
-    background-color: #00324A !important;
+.bg-primary{
+    background-color:#00324A !important;
 }
 
-a:hover {
+a:hover{
     color: #fff;
     text-decoration: none;
-    font-size: medium;
+    font-size: medium;    
+}
+.btn .btn-primary{
+    background-color:#00324A !important;
 }
 
-.btn .btn-primary {
-    background-color: #00324A !important;
-}
-
-.btn {
+.btn{
     border-radius: 0;
 }
-
 
 /* Banner */
 
@@ -88,7 +83,6 @@ section.banner {
     position: relative;
     overflow: hidden;
     height: calc(100vh - 70px);
-    min-height: 500px;
     background: linear-gradient(to right, #333 0%, #000000c2);
     display: flex;
     align-items: center;
@@ -110,7 +104,6 @@ section.banner {
     left: 0;
     width: 100%;
     height: 100vh;
-    min-height: 500px;
     object-fit: cover;
     float: left;
     z-index: -1;
@@ -150,12 +143,9 @@ section.contenido {
     text-indent: 3px;
 }
 
-
 /* Termina pagina de inicio */
 
-
 /* Empieza login y registro */
-
 .contenedor {
     background-color: #DCD2C5;
     margin: 50px auto;
@@ -164,16 +154,11 @@ section.contenido {
 }
 
 .title {
-    font-size: 1.5rem;
+    font-size: 1.5rem bold;
     padding-bottom: 15px;
 }
 
-h2.title {
-    color: #fff;
-    margin-top: 1rem;
-}
-
-.contenedor .title {
+.contenedor .title{
     text-align: center;
 }
 
@@ -187,8 +172,7 @@ h2.title {
     flex-flow: column;
 }
 
-.login-form .actions button,
-.action-button {
+.login-form button {
     border: none;
     color: #fff;
     background-color: #00324A;
@@ -220,8 +204,7 @@ h2.title {
     text-align: center;
 }
 
-.input-container input,
-.input-container select {
+.input-container input, .input-container select {
     font-size: 0.9rem;
     padding: 0.3rem;
     outline: none;
@@ -229,131 +212,22 @@ h2.title {
     height: 2rem;
 }
 
-.formlink {
-    background: none;
-    border: none;
+.formlink:link {
     color: #00324A;
-    text-align: left;
+    text-decoration: none;
     font-weight: bold;
-    outline: none!important;
+    text-align: center;
+}
+
+.formlink:visited {
+    color: #00324A;
+    text-decoration: none;
 }
 
 .formlink:hover {
     color: gray;
-}
-
-.link-container {
-    position: relative;
-}
-
-.drop-menu {
-    position: absolute;
-    top: -8px;
-    right: -60%;
-    background-color: #fff;
-    border-radius: 10px;
-    width: fit-content;
-    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.12);
-    overflow: hidden;
-}
-
-.drop-menu::after {
-    content: " ";
-    position: absolute;
-    top: 30%;
-    right: 100%;
-    /* To the left of the tooltip */
-    margin-top: -6px;
-    border-width: 6px;
-    border-style: solid;
-    border-color: transparent white transparent transparent;
-}
-
-.hidden {
-    display: none;
+    text-decoration: underline;
 }
 
 
 /* Termina login y registro */
-
-
-/* Footer */
-
-footer {
-    background-color: #222;
-    color: #fff;
-}
-
-footer #formContacto {
-    justify-self: flex-end;
-}
-
-.footer-legend {
-    text-align: center!important;
-}
-
-.footer-divider {
-    background-color: #555;
-}
-
-.contact-info {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.contact-info span {
-    display: block;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.imgRedonda {
-    border-radius: 50%;
-    height: 150px;
-    width: 150px;
-}
-
-section.FondoFotos {
-    position: fixed;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    height: 100vh;
-}
-
-section.FondoFotos video {
-    z-index: -2;
-}
-
-.mascara_fondo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: linear-gradient(to right, #333 0%, #000000c2);
-    width: 100%;
-    height: 100vh;
-}
-
-.card {
-    background: transparent;
-    color: #fff;
-    border: transparent;
-    flex-flow: row;
-    align-items: center;
-}
-
-.card-title {
-    min-height: 2rem;
-}
-
-.infolink{
-    background-color: #00324A;
-    padding: 1rem;
-    border-radius: 10px;
-    text-align: center;
-}
-.infolink .navlink{
-    margin: 0;
-}
