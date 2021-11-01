@@ -1,0 +1,189 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema ispc_gestor
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema ispc_gestor
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `ispc_gestor` DEFAULT CHARACTER SET utf8 ;
+USE `ispc_gestor` ;
+
+-- -----------------------------------------------------
+-- Table `ispc_gestor`.`egresos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ispc_gestor`.`egresos` (
+  `Id_Egreso` INT NOT NULL AUTO_INCREMENT,
+  `TipoDePago` VARCHAR(30) NULL DEFAULT NULL,
+  `FechaIngresos` DATETIME NULL DEFAULT NULL,
+  `Id_Turno` INT NOT NULL,
+  `MontoEg` VARCHAR(50) NULL DEFAULT NULL,
+  `DescripcionMontoEg` VARCHAR(1000) NULL DEFAULT NULL,
+  `Id_Empresa` INT NOT NULL,
+  `Id_Empleado` INT NOT NULL,
+  PRIMARY KEY (`Id_Egreso`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `ispc_gestor`.`empresa`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ispc_gestor`.`empresa` (
+  `Id_Empresa` INT NOT NULL AUTO_INCREMENT,
+  `Descripcion` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`Id_Empresa`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `ispc_gestor`.`fondos_cajas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ispc_gestor`.`fondos_cajas` (
+  `Id_Caja` INT NOT NULL AUTO_INCREMENT,
+  `FondoInicial` VARCHAR(20) NULL DEFAULT NULL,
+  `Id_Turno` INT NOT NULL,
+  `Fecha` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`Id_Caja`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `ispc_gestor`.`ingresos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ispc_gestor`.`ingresos` (
+  `Id_Ingreso` INT NOT NULL AUTO_INCREMENT,
+  `TipoDePago` VARCHAR(30) NULL DEFAULT NULL,
+  `FechaIngresos` DATETIME NULL DEFAULT NULL,
+  `Id_Turno` INT NOT NULL,
+  `MontoIng` VARCHAR(50) NULL DEFAULT NULL,
+  `DescripcionMontoIng` VARCHAR(1000) NULL DEFAULT NULL,
+  `Id_Empresa` INT NOT NULL,
+  `Id_Empleado` INT NOT NULL,
+  PRIMARY KEY (`Id_Ingreso`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `ispc_gestor`.`nomina`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ispc_gestor`.`nomina` (
+  `Id_Empleado` INT NOT NULL,
+  `Apellido` VARCHAR(50) NULL DEFAULT NULL,
+  `Nombre` VARCHAR(100) NULL DEFAULT NULL,
+  `Tipo_Dni` VARCHAR(5) NULL DEFAULT NULL,
+  `Num_Dni` VARCHAR(15) NULL DEFAULT NULL,
+  `Rol` VARCHAR(50) NULL DEFAULT NULL,
+  `Usuario` VARCHAR(10) NULL DEFAULT NULL,
+  `Id_Empresa` INT NOT NULL,
+  `Turno` VARCHAR(1) NULL DEFAULT NULL,
+  `Id_Turno` INT NOT NULL,
+  PRIMARY KEY (`Id_Empleado`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `ispc_gestor`.`proveedor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ispc_gestor`.`proveedor` (
+  `Id_Proveedor` INT NOT NULL AUTO_INCREMENT,
+  `Descripcion` VARCHAR(500) NULL DEFAULT NULL,
+  PRIMARY KEY (`Id_Proveedor`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `ispc_gestor`.`rol`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ispc_gestor`.`rol` (
+  `Id_Rol` INT NOT NULL AUTO_INCREMENT,
+  `Descripcion` VARCHAR(100) NULL DEFAULT NULL,
+  `Id_Empresa` INT NOT NULL,
+  PRIMARY KEY (`Id_Rol`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `ispc_gestor`.`stock`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ispc_gestor`.`stock` (
+  `Id_Stock` INT NOT NULL AUTO_INCREMENT,
+  `Descripcion` VARCHAR(100) NULL DEFAULT NULL,
+  `Cantidad` INT NULL DEFAULT NULL,
+  `Precio_u` VARCHAR(10) NULL DEFAULT NULL,
+  `Id_UnidadMedida` INT NOT NULL,
+  `Codigo_Barras` VARCHAR(20) NULL DEFAULT NULL,
+  `Id_Empresa` INT NOT NULL,
+  PRIMARY KEY (`Id_Stock`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `ispc_gestor`.`tipo_pago`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ispc_gestor`.`tipo_pago` (
+  `Id_TipoPago` INT NOT NULL AUTO_INCREMENT,
+  `Descripcion` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`Id_TipoPago`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `ispc_gestor`.`turno`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ispc_gestor`.`turno` (
+  `Id_Turno` INT NOT NULL AUTO_INCREMENT,
+  `Descripcion` VARCHAR(10) NULL DEFAULT NULL,
+  PRIMARY KEY (`Id_Turno`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `ispc_gestor`.`unidades_medida`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ispc_gestor`.`unidades_medida` (
+  `Id_UnidadMedida` INT NOT NULL AUTO_INCREMENT,
+  `Descripcion` VARCHAR(100) NULL DEFAULT NULL,
+  `Id_Empresa` INT NOT NULL,
+  PRIMARY KEY (`Id_UnidadMedida`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `ispc_gestor`.`ventas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ispc_gestor`.`ventas` (
+  `Id_Venta` INT NOT NULL AUTO_INCREMENT,
+  `Fecha` DATETIME NULL DEFAULT NULL,
+  `Descrpcion` VARCHAR(100) NULL DEFAULT NULL,
+  `Monto` VARCHAR(20) NULL DEFAULT NULL,
+  `Id_Empresa` INT NULL DEFAULT NULL,
+  `Id_Empleado` INT NULL DEFAULT NULL,
+  `Id_Turno` INT NOT NULL,
+  `id_Proveedor` INT NOT NULL,
+  PRIMARY KEY (`Id_Venta`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
