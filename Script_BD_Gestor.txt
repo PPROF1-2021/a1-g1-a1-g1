@@ -1,189 +1,363 @@
--- MySQL Workbench Forward Engineering
-
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema ispc_gestor
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema ispc_gestor
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `ispc_gestor` DEFAULT CHARACTER SET utf8 ;
-USE `ispc_gestor` ;
-
--- -----------------------------------------------------
--- Table `ispc_gestor`.`egresos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ispc_gestor`.`egresos` (
-  `Id_Egreso` INT NOT NULL AUTO_INCREMENT,
-  `TipoDePago` VARCHAR(30) NULL DEFAULT NULL,
-  `FechaIngresos` DATETIME NULL DEFAULT NULL,
-  `Id_Turno` INT NOT NULL,
-  `MontoEg` VARCHAR(50) NULL DEFAULT NULL,
-  `DescripcionMontoEg` VARCHAR(1000) NULL DEFAULT NULL,
-  `Id_Empresa` INT NOT NULL,
-  `Id_Empleado` INT NOT NULL,
-  PRIMARY KEY (`Id_Egreso`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+CREATE DATABASE  IF NOT EXISTS `gestor_stock` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `gestor_stock`;
 
 
--- -----------------------------------------------------
--- Table `ispc_gestor`.`empresa`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ispc_gestor`.`empresa` (
-  `Id_Empresa` INT NOT NULL AUTO_INCREMENT,
-  `Descripcion` VARCHAR(100) NULL DEFAULT NULL,
-  PRIMARY KEY (`Id_Empresa`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+-- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: gestor_stock
+-- ------------------------------------------------------
+-- Server version	8.0.25
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- -----------------------------------------------------
--- Table `ispc_gestor`.`fondos_cajas`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ispc_gestor`.`fondos_cajas` (
-  `Id_Caja` INT NOT NULL AUTO_INCREMENT,
-  `FondoInicial` VARCHAR(20) NULL DEFAULT NULL,
-  `Id_Turno` INT NOT NULL,
-  `Fecha` DATETIME NULL DEFAULT NULL,
-  PRIMARY KEY (`Id_Caja`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+--
+-- Table structure for table `cierre_caja`
+--
 
+DROP TABLE IF EXISTS `cierre_caja`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cierre_caja` (
+  `idCierre_Caja` int NOT NULL AUTO_INCREMENT,
+  `Monto_Efectivo` decimal(50,0) NOT NULL,
+  `Monto_Debito` decimal(50,0) DEFAULT NULL,
+  `Monto_Credito` decimal(50,0) DEFAULT NULL,
+  `Fecha` date DEFAULT NULL,
+  `Usuarios_idUsuario` int NOT NULL,
+  `Empresas_idEmpresa` int NOT NULL,
+  PRIMARY KEY (`idCierre_Caja`),
+  KEY `fk_Cierre_Caja_Usuarios1_idx` (`Usuarios_idUsuario`),
+  KEY `fk_Cierre_Caja_Empresas1_idx` (`Empresas_idEmpresa`),
+  CONSTRAINT `fk_Cierre_Caja_Empresas1` FOREIGN KEY (`Empresas_idEmpresa`) REFERENCES `empresas` (`idEmpresa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Cierre_Caja_Usuarios1` FOREIGN KEY (`Usuarios_idUsuario`) REFERENCES `usuarios` (`idUsuario`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- -----------------------------------------------------
--- Table `ispc_gestor`.`ingresos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ispc_gestor`.`ingresos` (
-  `Id_Ingreso` INT NOT NULL AUTO_INCREMENT,
-  `TipoDePago` VARCHAR(30) NULL DEFAULT NULL,
-  `FechaIngresos` DATETIME NULL DEFAULT NULL,
-  `Id_Turno` INT NOT NULL,
-  `MontoIng` VARCHAR(50) NULL DEFAULT NULL,
-  `DescripcionMontoIng` VARCHAR(1000) NULL DEFAULT NULL,
-  `Id_Empresa` INT NOT NULL,
-  `Id_Empleado` INT NOT NULL,
-  PRIMARY KEY (`Id_Ingreso`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+--
+-- Dumping data for table `cierre_caja`
+--
 
+LOCK TABLES `cierre_caja` WRITE;
+/*!40000 ALTER TABLE `cierre_caja` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cierre_caja` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- -----------------------------------------------------
--- Table `ispc_gestor`.`nomina`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ispc_gestor`.`nomina` (
-  `Id_Empleado` INT NOT NULL,
-  `Apellido` VARCHAR(50) NULL DEFAULT NULL,
-  `Nombre` VARCHAR(100) NULL DEFAULT NULL,
-  `Tipo_Dni` VARCHAR(5) NULL DEFAULT NULL,
-  `Num_Dni` VARCHAR(15) NULL DEFAULT NULL,
-  `Rol` VARCHAR(50) NULL DEFAULT NULL,
-  `Usuario` VARCHAR(10) NULL DEFAULT NULL,
-  `Id_Empresa` INT NOT NULL,
-  `Turno` VARCHAR(1) NULL DEFAULT NULL,
-  `Id_Turno` INT NOT NULL,
-  PRIMARY KEY (`Id_Empleado`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+--
+-- Table structure for table `egreso`
+--
 
+DROP TABLE IF EXISTS `egreso`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `egreso` (
+  `idEgreso` int NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(45) NOT NULL,
+  `Cantidad` decimal(30,0) NOT NULL,
+  `Fecha` date NOT NULL,
+  `idEmpresa` int NOT NULL,
+  `Usuarios_idUsuario` int NOT NULL,
+  PRIMARY KEY (`idEgreso`),
+  KEY `fk_Egreso_Empresas1_idx` (`idEmpresa`),
+  KEY `fk_Egreso_Usuarios1_idx` (`Usuarios_idUsuario`),
+  CONSTRAINT `fk_Egreso_Empresas1` FOREIGN KEY (`idEmpresa`) REFERENCES `empresas` (`idEmpresa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Egreso_Usuarios1` FOREIGN KEY (`Usuarios_idUsuario`) REFERENCES `usuarios` (`idUsuario`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- -----------------------------------------------------
--- Table `ispc_gestor`.`proveedor`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ispc_gestor`.`proveedor` (
-  `Id_Proveedor` INT NOT NULL AUTO_INCREMENT,
-  `Descripcion` VARCHAR(500) NULL DEFAULT NULL,
-  PRIMARY KEY (`Id_Proveedor`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+--
+-- Dumping data for table `egreso`
+--
 
+LOCK TABLES `egreso` WRITE;
+/*!40000 ALTER TABLE `egreso` DISABLE KEYS */;
+/*!40000 ALTER TABLE `egreso` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- -----------------------------------------------------
--- Table `ispc_gestor`.`rol`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ispc_gestor`.`rol` (
-  `Id_Rol` INT NOT NULL AUTO_INCREMENT,
-  `Descripcion` VARCHAR(100) NULL DEFAULT NULL,
-  `Id_Empresa` INT NOT NULL,
-  PRIMARY KEY (`Id_Rol`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+--
+-- Table structure for table `empresas`
+--
 
+DROP TABLE IF EXISTS `empresas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `empresas` (
+  `idEmpresa` int NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(45) NOT NULL,
+  `Descripcion` varchar(45) DEFAULT NULL,
+  `Codigo` varchar(8) NOT NULL,
+  PRIMARY KEY (`idEmpresa`),
+  UNIQUE KEY `Codigo_UNIQUE` (`Codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- -----------------------------------------------------
--- Table `ispc_gestor`.`stock`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ispc_gestor`.`stock` (
-  `Id_Stock` INT NOT NULL AUTO_INCREMENT,
-  `Descripcion` VARCHAR(100) NULL DEFAULT NULL,
-  `Cantidad` INT NULL DEFAULT NULL,
-  `Precio_u` VARCHAR(10) NULL DEFAULT NULL,
-  `Id_UnidadMedida` INT NOT NULL,
-  `Codigo_Barras` VARCHAR(20) NULL DEFAULT NULL,
-  `Id_Empresa` INT NOT NULL,
-  PRIMARY KEY (`Id_Stock`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+--
+-- Dumping data for table `empresas`
+--
 
+LOCK TABLES `empresas` WRITE;
+/*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `Empresas_Generar_Codigo` BEFORE INSERT ON `empresas` FOR EACH ROW BEGIN
+declare ready int default 0;
+    declare rnd_str text;
+    if new.Codigo is null then
+        while not ready do
+            set rnd_str := lpad(conv(floor(rand()*pow(36,8)), 10, 36), 8, 0);
+            if not exists (select * from Empresas where Codigo = rnd_str) then
+                set new.Codigo = rnd_str;
+                set ready := 1;
+            end if;
+        end while;
+    end if;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
--- -----------------------------------------------------
--- Table `ispc_gestor`.`tipo_pago`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ispc_gestor`.`tipo_pago` (
-  `Id_TipoPago` INT NOT NULL AUTO_INCREMENT,
-  `Descripcion` VARCHAR(100) NULL DEFAULT NULL,
-  PRIMARY KEY (`Id_TipoPago`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+--
+-- Table structure for table `ingresos`
+--
 
+DROP TABLE IF EXISTS `ingresos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ingresos` (
+  `idIngreso` int NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(45) NOT NULL,
+  `Cantidad` decimal(30,0) NOT NULL,
+  `Fecha` date NOT NULL,
+  `idEmpresa` int NOT NULL,
+  `Usuarios_idUsuario` int NOT NULL,
+  PRIMARY KEY (`idIngreso`),
+  KEY `fk_Ingesos_Empresas1_idx` (`idEmpresa`),
+  KEY `fk_Ingresos_Usuarios1_idx` (`Usuarios_idUsuario`),
+  CONSTRAINT `fk_Ingesos_Empresas1` FOREIGN KEY (`idEmpresa`) REFERENCES `empresas` (`idEmpresa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Ingresos_Usuarios1` FOREIGN KEY (`Usuarios_idUsuario`) REFERENCES `usuarios` (`idUsuario`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- -----------------------------------------------------
--- Table `ispc_gestor`.`turno`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ispc_gestor`.`turno` (
-  `Id_Turno` INT NOT NULL AUTO_INCREMENT,
-  `Descripcion` VARCHAR(10) NULL DEFAULT NULL,
-  PRIMARY KEY (`Id_Turno`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+--
+-- Dumping data for table `ingresos`
+--
 
+LOCK TABLES `ingresos` WRITE;
+/*!40000 ALTER TABLE `ingresos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ingresos` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- -----------------------------------------------------
--- Table `ispc_gestor`.`unidades_medida`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ispc_gestor`.`unidades_medida` (
-  `Id_UnidadMedida` INT NOT NULL AUTO_INCREMENT,
-  `Descripcion` VARCHAR(100) NULL DEFAULT NULL,
-  `Id_Empresa` INT NOT NULL,
-  PRIMARY KEY (`Id_UnidadMedida`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+--
+-- Table structure for table `paises`
+--
 
+DROP TABLE IF EXISTS `paises`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `paises` (
+  `idPais` int NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(50) NOT NULL,
+  PRIMARY KEY (`idPais`)
+) ENGINE=InnoDB AUTO_INCREMENT=491 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- -----------------------------------------------------
--- Table `ispc_gestor`.`ventas`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ispc_gestor`.`ventas` (
-  `Id_Venta` INT NOT NULL AUTO_INCREMENT,
-  `Fecha` DATETIME NULL DEFAULT NULL,
-  `Descrpcion` VARCHAR(100) NULL DEFAULT NULL,
-  `Monto` VARCHAR(20) NULL DEFAULT NULL,
-  `Id_Empresa` INT NULL DEFAULT NULL,
-  `Id_Empleado` INT NULL DEFAULT NULL,
-  `Id_Turno` INT NOT NULL,
-  `id_Proveedor` INT NOT NULL,
-  PRIMARY KEY (`Id_Venta`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+--
+-- Dumping data for table `paises`
+--
 
+LOCK TABLES `paises` WRITE;
+/*!40000 ALTER TABLE `paises` DISABLE KEYS */;
+INSERT INTO `paises` VALUES (246,'Afghanistan'),(247,'Albania'),(248,'Algeria'),(249,'American Samoa'),(250,'Andorra'),(251,'Angola'),(252,'Anguilla'),(253,'Antarctica'),(254,'Antigua and Barbuda'),(255,'Argentina'),(256,'Armenia'),(257,'Aruba'),(258,'Australia'),(259,'Austria'),(260,'Azerbaijan'),(261,'Bahamas (the)'),(262,'Bahrain'),(263,'Bangladesh'),(264,'Barbados'),(265,'Belarus'),(266,'Belgium'),(267,'Belize'),(268,'Benin'),(269,'Bermuda'),(270,'Bhutan'),(271,'Bolivia (Plurinational State of)'),(272,'Bonaire, Sint Eustatius and Saba'),(273,'Bosnia and Herzegovina'),(274,'Botswana'),(275,'Bouvet Island'),(276,'Brazil'),(277,'British Indian Ocean Territory (the)'),(278,'Brunei Darussalam'),(279,'Bulgaria'),(280,'Burkina Faso'),(281,'Burundi'),(282,'Cabo Verde'),(283,'Cambodia'),(284,'Cameroon'),(285,'Canada'),(286,'Cayman Islands (the)'),(287,'Central African Republic (the)'),(288,'Chad'),(289,'Chile'),(290,'China'),(291,'Christmas Island'),(292,'Cocos (Keeling) Islands (the)'),(293,'Colombia'),(294,'Comoros (the)'),(295,'Congo (the Democratic Republic of the)'),(296,'Congo (the)'),(297,'Cook Islands (the)'),(298,'Costa Rica'),(299,'Croatia'),(300,'Cuba'),(301,'Curaçao'),(302,'Cyprus'),(303,'Czechia'),(304,'Denmark'),(305,'Djibouti'),(306,'Dominica'),(307,'Dominican Republic (the)'),(308,'Ecuador'),(309,'Egypt'),(310,'El Salvador'),(311,'Equatorial Guinea'),(312,'Eritrea'),(313,'Estonia'),(314,'Eswatini'),(315,'Ethiopia'),(316,'Falkland Islands (the) [Malvinas]'),(317,'Faroe Islands (the)'),(318,'Fiji'),(319,'Finland'),(320,'France'),(321,'French Guiana'),(322,'French Polynesia'),(323,'French Southern Territories (the)'),(324,'Gabon'),(325,'Gambia (the)'),(326,'Georgia'),(327,'Germany'),(328,'Ghana'),(329,'Gibraltar'),(330,'Greece'),(331,'Greenland'),(332,'Grenada'),(333,'Guadeloupe'),(334,'Guam'),(335,'Guatemala'),(336,'Guernsey'),(337,'Guinea'),(338,'Guinea-Bissau'),(339,'Guyana'),(340,'Haiti'),(341,'Heard Island and McDonald Islands'),(342,'Holy See (the)'),(343,'Honduras'),(344,'Hong Kong'),(345,'Hungary'),(346,'Iceland'),(347,'India'),(348,'Indonesia'),(349,'Iran (Islamic Republic of)'),(350,'Iraq'),(351,'Ireland'),(352,'Isle of Man'),(353,'Israel'),(354,'Italy'),(355,'Jamaica'),(356,'Japan'),(357,'Jersey'),(358,'Jordan'),(359,'Kazakhstan'),(360,'Kenya'),(361,'Kiribati'),(362,'Korea (the Republic of)'),(363,'Kuwait'),(364,'Kyrgyzstan'),(365,'Latvia'),(366,'Lebanon'),(367,'Lesotho'),(368,'Liberia'),(369,'Libya'),(370,'Liechtenstein'),(371,'Lithuania'),(372,'Luxembourg'),(373,'Macao'),(374,'Madagascar'),(375,'Malawi'),(376,'Malaysia'),(377,'Maldives'),(378,'Mali'),(379,'Malta'),(380,'Marshall Islands (the)'),(381,'Martinique'),(382,'Mauritania'),(383,'Mauritius'),(384,'Mayotte'),(385,'Mexico'),(386,'Micronesia (Federated States of)'),(387,'Moldova (the Republic of)'),(388,'Monaco'),(389,'Mongolia'),(390,'Montenegro'),(391,'Montserrat'),(392,'Morocco'),(393,'Mozambique'),(394,'Myanmar'),(395,'Namibia'),(396,'Nauru'),(397,'Nepal'),(398,'Netherlands (the)'),(399,'New Caledonia'),(400,'New Zealand'),(401,'Nicaragua'),(402,'Niger (the)'),(403,'Nigeria'),(404,'Niue'),(405,'Norfolk Island'),(406,'Northern Mariana Islands (the)'),(407,'Norway'),(408,'Oman'),(409,'Pakistan'),(410,'Palau'),(411,'Palestine, State of'),(412,'Panama'),(413,'Papua New Guinea'),(414,'Paraguay'),(415,'Peru'),(416,'Philippines (the)'),(417,'Pitcairn'),(418,'Poland'),(419,'Portugal'),(420,'Puerto Rico'),(421,'Qatar'),(422,'Republic of North Macedonia'),(423,'Romania'),(424,'Russian Federation (the)'),(425,'Rwanda'),(426,'Réunion'),(427,'Saint Barthélemy'),(428,'Saint Helena, Ascension and Tristan da Cunha'),(429,'Saint Kitts and Nevis'),(430,'Saint Lucia'),(431,'Saint Martin (French part)'),(432,'Saint Pierre and Miquelon'),(433,'Saint Vincent and the Grenadines'),(434,'Samoa'),(435,'San Marino'),(436,'Sao Tome and Principe'),(437,'Saudi Arabia'),(438,'Senegal'),(439,'Serbia'),(440,'Seychelles'),(441,'Sierra Leone'),(442,'Singapore'),(443,'Sint Maarten (Dutch part)'),(444,'Slovakia'),(445,'Slovenia'),(446,'Solomon Islands'),(447,'Somalia'),(448,'South Africa'),(449,'South Georgia and the South Sandwich Islands'),(450,'South Sudan'),(451,'Spain'),(452,'Sri Lanka'),(453,'Sudan (the)'),(454,'Suriname'),(455,'Svalbard and Jan Mayen'),(456,'Sweden'),(457,'Switzerland'),(458,'Syrian Arab Republic'),(459,'Taiwan'),(460,'Tajikistan'),(461,'Tanzania, United Republic of'),(462,'Thailand'),(463,'Timor-Leste'),(464,'Togo'),(465,'Tokelau'),(466,'Tonga'),(467,'Trinidad and Tobago'),(468,'Tunisia'),(469,'Turkey'),(470,'Turkmenistan'),(471,'Turks and Caicos Islands (the)'),(472,'Tuvalu'),(473,'Uganda'),(474,'Ukraine'),(475,'United Arab Emirates (the)'),(476,'United States Minor Outlying Islands (the)'),(477,'United States of America (the)'),(478,'Uruguay'),(479,'Uzbekistan'),(480,'Vanuatu'),(481,'Venezuela (Bolivarian Republic of)'),(482,'Viet Nam'),(483,'Virgin Islands (British)'),(484,'Virgin Islands (U.S.)'),(485,'Wallis and Futuna'),(486,'Western Sahara'),(487,'Yemen'),(488,'Zambia'),(489,'Zimbabwe'),(490,'Åland Islands');
+/*!40000 ALTER TABLE `paises` ENABLE KEYS */;
+UNLOCK TABLES;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+--
+-- Table structure for table `stock`
+--
+
+DROP TABLE IF EXISTS `stock`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `stock` (
+  `idStock` int NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(45) NOT NULL,
+  `Precio` decimal(20,0) NOT NULL,
+  `Codigo` varchar(45) DEFAULT NULL,
+  `idUnidadMedida` int DEFAULT NULL,
+  `idEmpresa` int DEFAULT NULL,
+  `Cantidad` decimal(20,0) DEFAULT NULL,
+  PRIMARY KEY (`idStock`),
+  KEY `fk_Stock_Unidades_Medida1_idx` (`idUnidadMedida`),
+  KEY `fk_Stock_Empresas1_idx` (`idEmpresa`),
+  CONSTRAINT `fk_Stock_Empresas1` FOREIGN KEY (`idEmpresa`) REFERENCES `empresas` (`idEmpresa`),
+  CONSTRAINT `fk_Stock_Unidades_Medida1` FOREIGN KEY (`idUnidadMedida`) REFERENCES `unidades_medida` (`idUnidad_Medida`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stock`
+--
+
+LOCK TABLES `stock` WRITE;
+/*!40000 ALTER TABLE `stock` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stock` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `stock_interno`
+--
+
+DROP TABLE IF EXISTS `stock_interno`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `stock_interno` (
+  `idStockInterno` int NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(45) NOT NULL,
+  `Cantidad` decimal(10,0) NOT NULL,
+  `Codigo` varchar(45) DEFAULT NULL,
+  `idUnidades_Medida` int NOT NULL,
+  `Empresas_idEmpresas` int NOT NULL,
+  PRIMARY KEY (`idStockInterno`),
+  KEY `fk_Stock_Unidades_Medida1_idx` (`idUnidades_Medida`),
+  KEY `fk_Stock_Empresas1_idx` (`Empresas_idEmpresas`),
+  CONSTRAINT `fk_Stock_Empresas10` FOREIGN KEY (`Empresas_idEmpresas`) REFERENCES `empresas` (`idEmpresa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Stock_Unidades_Medida10` FOREIGN KEY (`idUnidades_Medida`) REFERENCES `unidades_medida` (`idUnidad_Medida`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stock_interno`
+--
+
+LOCK TABLES `stock_interno` WRITE;
+/*!40000 ALTER TABLE `stock_interno` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stock_interno` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `unidades_medida`
+--
+
+DROP TABLE IF EXISTS `unidades_medida`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `unidades_medida` (
+  `idUnidad_Medida` int NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(45) NOT NULL,
+  PRIMARY KEY (`idUnidad_Medida`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `unidades_medida`
+--
+
+LOCK TABLES `unidades_medida` WRITE;
+/*!40000 ALTER TABLE `unidades_medida` DISABLE KEYS */;
+INSERT INTO `unidades_medida` VALUES (2,'Unidades'),(3,'Peso(Kg)');
+/*!40000 ALTER TABLE `unidades_medida` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuarios`
+--
+
+DROP TABLE IF EXISTS `usuarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuarios` (
+  `idUsuario` int NOT NULL AUTO_INCREMENT,
+  `Correo` varchar(45) NOT NULL,
+  `Nombre` varchar(45) NOT NULL,
+  `Apellido` varchar(45) NOT NULL,
+  `Fecha_Nacimiento` date NOT NULL,
+  `Contraseña` varchar(45) NOT NULL,
+  `EsPropietario` tinyint NOT NULL,
+  `Provincia` varchar(45) DEFAULT NULL,
+  `idPaises` int NOT NULL,
+  `idEmpresas` int NOT NULL,
+  PRIMARY KEY (`idUsuario`),
+  UNIQUE KEY `Correo_UNIQUE` (`Correo`),
+  KEY `fk_Usuarios_Paises_idx` (`idPaises`),
+  KEY `fk_Usuarios_Empresas1_idx` (`idEmpresas`),
+  CONSTRAINT `fk_Usuarios_Empresas1` FOREIGN KEY (`idEmpresas`) REFERENCES `empresas` (`idEmpresa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Usuarios_Paises` FOREIGN KEY (`idPaises`) REFERENCES `paises` (`idPais`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+LOCK TABLES `usuarios` WRITE;
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ventas`
+--
+
+DROP TABLE IF EXISTS `ventas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ventas` (
+  `idVenta` int NOT NULL AUTO_INCREMENT,
+  `Monto` decimal(30,0) NOT NULL,
+  `Fecha` date NOT NULL,
+  `idUsuarioResponsable` int NOT NULL,
+  `idEmpresa` int NOT NULL,
+  PRIMARY KEY (`idVenta`),
+  KEY `fk_Ventas_Usuarios1_idx` (`idUsuarioResponsable`),
+  KEY `fk_Ventas_Empresas1_idx` (`idEmpresa`),
+  CONSTRAINT `fk_Ventas_Empresas1` FOREIGN KEY (`idEmpresa`) REFERENCES `empresas` (`idEmpresa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Ventas_Usuarios1` FOREIGN KEY (`idUsuarioResponsable`) REFERENCES `usuarios` (`idUsuario`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ventas`
+--
+
+LOCK TABLES `ventas` WRITE;
+/*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping events for database 'gestor_stock'
+--
+
+--
+-- Dumping routines for database 'gestor_stock'
+--
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-11-18 22:24:59
