@@ -13,7 +13,7 @@
     <link rel="mask-icon" href="./icons/safari-pinned-tab.svg" color="#00324a">
     <link rel="shortcut icon" href="./icons/favicon.ico">
     <meta name="msapplication-TileColor" content="#00324a">
-    <meta name="msapplication-config" content="/icons/browserconfig.xml">
+    <meta name="msapplication-config" content="./icons/browserconfig.xml">
     <meta name="theme-color" content="#00324a">
 
     <!-- implementacion de bibliotecas de bootstrap -->
@@ -33,27 +33,26 @@
 <body>
     <header>
 
-        <!-- Con esto se implementa Bootstrap 4 en el nav de este archivo como en login.html -->
+        <!-- Con esto se implementa Bootstrap 4 en el nav de este archivo como en login.php -->
         <nav class="navbar navbar-expand-lg bg-primary navbar-dark text text-white">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.php">
                 <img src="img/logo.svg" alt="logo" class="logo">
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <!-- a difrencia de los enlaces que tenia creamos un nav usando listas con ciertas clases para Bootstrap-->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="navlink" href="index.html">Inicio</a>
+                        <a class="navlink" href="index.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="navlink" href="pag_info.html">Quiénes Somos?</a>
+                        <a class="navlink" href="pag_info.php">Quiénes Somos?</a>
                         <!--Se agrega el acceso a la pagina de informacion-->
                     </li>
                     <li class="nav-item">
-                        <a class="navlink" href="login.html">Ingresar</a>
+                        <a class="navlink" href="login.php">Ingresar</a>
                     </li>
                 </ul>
             </div>
@@ -66,7 +65,7 @@
         <div class="col-xl-7 container contenedor pt-3">
             <h3 class="title">Registro</h3>
             <!-- con la propiedade container-fluid de bootstrap nos aseguramos de un formulario de ancho de la ventan completa -->
-            <form name="formRegistro" class="login-form container-fluid">
+            <form id="formRegistroEmpresa" name="formRegistro" class="login-form container-fluid">
 
                 <fieldset>
                     <legend>Administrador</legend>
@@ -79,9 +78,7 @@
                                 <i class="icono-user"></i>
 
                                 <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                                <input class="form-control" name="nombre" pattern="^[^0-9]{2,40}$"
-                                    title="El nombre debe contener mas 2 caracteres y no contener numeros" type="text"
-                                    required placeholder="Ingrese su nombre">
+                                <input class="form-control" name="nombre" pattern="^[^0-9]{2,40}$" title="El nombre debe contener mas 2 caracteres y no contener numeros" type="text" required placeholder="Ingrese su nombre">
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>
@@ -92,9 +89,7 @@
                             <div class="form-group input-container ">
                                 <i class="icono-user"></i>
                                 <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                                <input class="form-control" name="apellido" pattern="^[^0-9]{2,40}$" type="text"
-                                    title="Debe contener mas de 2 caracteres" required
-                                    placeholder="Ingrese su apellido">
+                                <input class="form-control" name="apellido" pattern="^[^0-9]{2,40}$" type="text" title="Debe contener mas de 2 caracteres" required placeholder="Ingrese su apellido">
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>
@@ -109,8 +104,7 @@
                                 <i class="icono-email"></i>
 
                                 <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                                <input class="form-control" name="correo" pattern="^[^@]+@[^@]+$" type="email" required
-                                    placeholder="Ingrese su correo electrónico" title="Debe contener @">
+                                <input class="form-control" name="correo" pattern="^[^@]+@[^@]+$" type="email" required placeholder="Ingrese su correo electrónico" title="Debe contener @">
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>
@@ -122,9 +116,7 @@
                             <div class="form-group input-container ">
                                 <i class="icono-calendar"></i>
                                 <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                                <input id="fechaNacimiento" class="form-control" name="nacimiento"
-                                    title="Debe contener 2 digitos para el dia, 2 para el mes y 4 para el año"
-                                    type="date" required placeholder="Ingrese su correo electrónico">
+                                <input id="fechaNacimiento" class="form-control" name="nacimiento" title="Debe contener 2 digitos para el dia, 2 para el mes y 4 para el año" type="date" required placeholder="Ingrese su correo electrónico">
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>
@@ -137,7 +129,7 @@
                             <!-- utilizamos form-group que es un grupo de formulario pero me apoyo de la caracteristica "responsive-design" de bootstrap -->
                             <div class="form-group input-container">
                                 <i class="icono-world"></i>
-                                <select name="pais" id="dropPais" class="form-control" required>
+                                <select name="pais" id="dropPais" name="pais" class="form-control" required>
                                     <option value="" disabled selected>Seleccione un pais</option>
                                 </select>
                                 <div class="invalid-tooltip"></div>
@@ -150,8 +142,7 @@
                             <div class="form-group input-container ">
                                 <i class="icono-world"></i>
                                 <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                                <input class="form-control" name="provincia" pattern="^[^0-9]+$" type="text"
-                                    title="Debe contener mas de 1 caracter" required placeholder="Ingrese su provincia">
+                                <input class="form-control" name="provincia" pattern="^[^0-9]+$" type="text" title="Debe contener mas de 1 caracter" required placeholder="Ingrese su provincia">
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>
@@ -165,9 +156,7 @@
                                 <i class="icono-key"></i>
 
                                 <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                                <input class="form-control" name="contraseña" pattern="^[0-9a-zA-Z]{4,256}$"
-                                    title="Debe contener entre 4 y 256 caracteres, letras mayusculas, minusculas y numeros"
-                                    type="password" required placeholder="Ingrese su contraseña">
+                                <input name="pass" class="form-control" pattern="^[0-9a-zA-Z]{4,256}$" title="Debe contener entre 4 y 256 caracteres, letras mayusculas, minusculas y numeros" type="password" required placeholder="Ingrese su contraseña">
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>
@@ -178,10 +167,7 @@
                             <div class="form-group input-container ">
                                 <i class="icono-key"></i>
                                 <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                                <input name="confirmacion-contraseña" class="form-control" name="password" pattern="^[0-9a-zA-Z]{4,256}$"
-                                    type="password"
-                                    title="Debe contener entre 4 y 256 caracteres, letras mayusculas, minusculas y numeros"
-                                    required placeholder="Ingrese su contraseña nuevamente">
+                                <input name="password" class="form-control" name="password" pattern="^[0-9a-zA-Z]{4,256}$" type="password" title="Debe contener entre 4 y 256 caracteres, letras mayusculas, minusculas y numeros" required placeholder="Ingrese su contraseña nuevamente">
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>
@@ -199,9 +185,7 @@
                                 <i class="icono-empresa"></i>
 
                                 <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                                <input class="form-control" name="empresa-nombre" pattern="^[^]+$" type="text"
-                                    title="Debe contener al menos 1 caracter" required
-                                    placeholder="Ingrese el nombre de la empresa">
+                                <input class="form-control" name="empresa-nombre" pattern="^[^]+$" type="text" title="Debe contener al menos 1 caracter" required placeholder="Ingrese el nombre de la empresa">
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>
@@ -212,9 +196,7 @@
                             <div class="form-group input-container ">
                                 <i class="icono-empresa"></i>
                                 <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                                <input class="form-control" name="empresa-descripcion" pattern="^[^]+$" type="text"
-                                    title="Debe contener al menos 1 caracter" required
-                                    placeholder="Ingrese la descripcion de la empresa">
+                                <input class="form-control" name="empresa-descripcion" pattern="^[^]+$" type="text" title="Debe contener al menos 1 caracter" required placeholder="Ingrese la descripcion de la empresa">
                                 <div class="invalid-tooltip"></div>
                             </div>
                         </div>
@@ -222,19 +204,19 @@
                 </fieldset>
 
                 <div class="text-center">
-                    <a class="formlink" href="login.html">¿Ya esta registrado? Ingrese aqui</a>
+                    <a class="formlink" href="login.php">¿Ya esta registrado? Ingrese aqui</a>
                 </div>
                 <div class="actions">
                     <!-- se reescriben algunas propiedades para mantener el estilo antiguo presentes en style.css-->
-                    <button id="btRegistrar" class="btn btn-primary">REGISTRARSE</button>
+                    <button id="btRegistrar" type="submit" class="btn btn-primary">REGISTRARSE</button>
                 </div>
             </form>
         </div>
     </main>
 
     <footer id="piePagina" class="container-fluid d-flex flex-column">
-        <div class="row d-flex flex-wrap justify-content-around">
-            <div class="form-container col-lg-4">
+        <div class="row d-flex justify-content-around">
+            <div class="form-container col-4">
                 <form id="formContacto" class="pb-5 pt-5 container no-gutters">
                     <legend>Contactanos</legend>
                     <div class="row">
@@ -278,8 +260,7 @@
                             <div class="form-group input-container ">
                                 <i class="icono-mensaje"></i>
                                 <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                                <textarea class="form-control" type="email" required
-                                    placeholder="Ingrese su mensaje"></textarea>
+                                <textarea class="form-control" type="email" required placeholder="Ingrese su mensaje"></textarea>
                             </div>
                         </div>
                     </div>
@@ -292,7 +273,7 @@
                 </form>
             </div>
 
-            <div class="contact-info text-center col-lg-4 py-5">
+            <div class="contact-info col-4 py-5">
                 <h3 class="titulo">Informacion de contacto</h3>
 
                 <span><i class="icono-home"></i> Argentina, Cordoba, Cordoba</span>
@@ -304,11 +285,13 @@
         <span class="footer-legend">Sitio diseñado y desarrollado por Grupo1 PP TSDWAD ISPC Cohorte 2021©</span>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-    <script src="./js/countryDropdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- <script src="./js/countryDropdown.js"></script> -->
     <script src="./js/funcionesGrupo99.js"></script>
+
+    <?php
+    require_once './php/cargarPaisesAlSitio.php'
+    ?>
 </body>
 
 </html>

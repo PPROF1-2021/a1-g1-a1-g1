@@ -39,7 +39,7 @@ function restar(valor) {
 
 function cerrarSesion() {
     console.log('Sesion cerrada');
-    window.location.replace('./index.html')
+    window.location.replace('./index.php')
 }
 
 document.getElementById('bt-cerrarSesion')?.addEventListener('click', cerrarSesion)
@@ -131,7 +131,6 @@ function validarRegistroEmpresa(idForm) {
 
         if (evt.currentTarget.checkValidity() && !error) {
             alert('Operacion exitosa!')
-            params['empresa-codigo'] = generarCodigoEmpresa();
             post('./info-procesada.php', params)
         }
         else {
@@ -141,12 +140,13 @@ function validarRegistroEmpresa(idForm) {
 }
 
 validarRegistroEmpresa('formRegistroEmpresa')
+validarRegistroEmpresa('formRegistroUsuario')
 // TERMINA VALIDACION Y ENVIO DE FORMULARIO REGISTRO //
 
 // EMPIEZA VALIDACION INDIVIDUAL DE CAMPOS DE FORMULARIO (Implementado en registro-usuario.html y registro-empresa.html) //
 function validacionIndividualCampo(idFormulario) {
-    console.log(idFormulario + document.getElementById(idFormulario));
     document.querySelectorAll(`#${idFormulario} input`).forEach(input => {
+        console.log(input.getAttribute('name'));
         document.querySelector(`input[name=${input.getAttribute('name')}] ~ .invalid-tooltip`).textContent = input.getAttribute('title');
         input?.addEventListener('input', () => {
             var regex = new RegExp(input.getAttribute('pattern'));
@@ -191,3 +191,23 @@ function validarPassword(idFormulario) {
 validarPassword('formRegistroEmpresa')
 validarPassword('formRegistroUsuario')
 // TERMINA VALIDACION DE CONTRASEÑA //
+
+// EMPIEZA REALIZAR LOGIN //
+function login(idFormulario) {
+    document.getElementById(`#${idFormulario}`)?.addEventListener('submit',
+        () => {
+            var error = false;
+            document.querySelectorAll(`#${evt.currentTarget.id} input, #${evt.currentTarget.id} select`).forEach(element => {
+                params[element.name] = element.value;
+                if (element.classList.contains('is-invalid')) {
+                    error = true;
+                    return;
+                }
+            });
+
+            if (this.checkValidity() && !error) {
+
+            }
+        });
+}
+// EMPIEZA REALIZAR LOGIN //

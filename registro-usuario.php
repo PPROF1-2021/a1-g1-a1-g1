@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
-    <link rel="manifest" href="/icons/site.webmanifest">
-    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#00324a">
-    <link rel="shortcut icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
+    <link rel="manifest" href="./icons/site.webmanifest">
+    <link rel="mask-icon" href="./icons/safari-pinned-tab.svg" color="#00324a">
+    <link rel="shortcut icon" href="./icons/favicon.ico">
     <meta name="msapplication-TileColor" content="#00324a">
-    <meta name="msapplication-config" content="/icons/browserconfig.xml">
+    <meta name="msapplication-config" content="./icons/browserconfig.xml">
     <meta name="theme-color" content="#00324a">
 
     <!-- implementacion de bibliotecas de bootstrap -->
@@ -33,9 +33,9 @@
 <body>
     <header>
 
-        <!-- Con esto se implementa Bootstrap 4 en el nav de este archivo como en login.html -->
+        <!-- Con esto se implementa Bootstrap 4 en el nav de este archivo como en login.php -->
         <nav class="navbar navbar-expand-lg bg-primary navbar-dark text text-white">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.php">
                 <img src="img/logo.svg" alt="logo" class="logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -46,14 +46,14 @@
                 <!-- a difrencia de los enlaces que tenia creamos un nav usando listas con ciertas clases para Bootstrap-->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="navlink" href="index.html">Inicio</a>
+                        <a class="navlink" href="index.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="navlink" href="pag_info.html">Quiénes Somos?</a>
+                        <a class="navlink" href="pag_info.php">Quiénes Somos?</a>
                         <!--Se agrega el acceso a la pagina de informacion-->
                     </li>
                     <li class="nav-item">
-                        <a class="navlink" href="login.html">Ingresar</a>
+                        <a class="navlink" href="login.php">Ingresar</a>
                     </li>
                 </ul>
             </div>
@@ -121,7 +121,7 @@
                         <div class="form-group input-container">
                             <i class="icono-calendar"></i>
                             <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                            <input name="fecha-nacimiento" class="form-control" type="date" id="fechaNacimiento"
+                            <input name="nacimiento" class="form-control" type="date" id="fechaNacimiento"
                                 max="2016-12-31" required placeholder="Ingrese fecha de nacimiento"
                                 title="Debe ser mayor de 18 años">
                             <div class="invalid-tooltip"></div>
@@ -168,7 +168,7 @@
                             <i class="icono-key"></i>
 
                             <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                            <input name="contraseña" pattern="^[0-9a-z=A-Z]{4,256}$" class="form-control"
+                            <input name="pass" pattern="^[0-9a-z=A-Z]{4,256}$" class="form-control"
                                 type="password" required placeholder="Ingrese su contraseña"
                                 title="Debe contener entre 4 y 256 caracteres, letras mayusculas, minusculas y numeros">
                             <div class="invalid-tooltip"></div>
@@ -182,11 +182,10 @@
                         <div class="form-group input-container ">
                             <i class="icono-key"></i>
                             <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                            <input name="confirmacion-contraseña" pattern="^[0-9a-zA-Z]{4,256}$" class="form-control"
+                            <input name="password" pattern="^[0-9a-zA-Z]{4,256}$" class="form-control"
                                 type="password" required placeholder="Ingrese su contraseña nuevamente"
                                 title="Debe contener entre 4 y 256 caracteres, letras mayusculas, minusculas y numeros">
                             <div class="invalid-tooltip"></div>
-
                         </div>
                     </div>
                 </div>
@@ -199,7 +198,7 @@
                             <i class="icono-empresa"></i>
 
                             <!-- Tomamos la caracteristica form-control para estilo completo y relleno suficiente, pertence a bootstrap borre logininput pues no lo encontre en css avisenme si hice algo mal -->
-                            <input name="codigo-empresa" pattern="^[a-z]{4,}$" class="form-control" type="password"
+                            <input name="codigo-empresa" pattern="^[a-zA-Z0-9]{8}$" class="form-control" type="password"
                                 required placeholder="Ingrese su codigo de empresa" title="Debe contener 4 o más letras y no contener numeros ni simbolos">
                             <div class="invalid-tooltip"></div>
 
@@ -211,7 +210,7 @@
 
 
                 <div class="text-center">
-                    <a class="formlink" href="login.html">¿Ya esta registrado? Ingrese aqui</a>
+                    <a class="formlink" href="login.php">¿Ya esta registrado? Ingrese aqui</a>
                 </div>
                 <div class="actions">
                     <!-- se reescriben algunas propiedades para mantener el estilo antiguo presentes en style.css-->
@@ -221,9 +220,9 @@
         </div>
     </main>
 
-    <footer id="piePagina" class="container-fluid d-flex flex-wrap flex-column">
+    <footer id="piePagina" class="container-fluid d-flex flex-column">
         <div class="row d-flex justify-content-around">
-            <div class="form-container col-lg-4">
+            <div class="form-container col-4">
                 <form id="formContacto" class="pb-5 pt-5 container no-gutters">
                     <legend>Contactanos</legend>
                     <div class="row">
@@ -284,7 +283,7 @@
                 </form>
             </div>
 
-            <div class="contact-info col-lg-4 text-center py-5">
+            <div class="contact-info col-4 py-5">
                 <h3 class="titulo">Informacion de contacto</h3>
 
                 <span><i class="icono-home"></i> Argentina, Cordoba, Cordoba</span>
@@ -299,8 +298,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-    <script src="./js/countryDropdown.js"></script>
     <script src="./js/funcionesGrupo99.js"></script>
+
+    <?php
+    require_once './php/cargarPaisesAlSitio.php'
+    ?>
 </body>
 
 </html>

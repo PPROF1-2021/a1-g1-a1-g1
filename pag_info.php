@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="aapple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
-    <link rel="manifest" href="/icons/site.webmanifest">
-    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#00324a">
-    <link rel="shortcut icon" href="/icons/favicon.ico">
+    <link rel="aapple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
+    <link rel="manifest" href="./icons/site.webmanifest">
+    <link rel="mask-icon" href="./icons/safari-pinned-tab.svg" color="#00324a">
+    <link rel="shortcut icon" href="./icons/favicon.ico">
 
     <!-- implementacion de bibliotecas de bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -21,7 +21,7 @@
     <!-- en este pequeño bloque se importo los elementos neceasrios de bootstrap -->
 
     <meta name="msapplication-TileColor" content="#00324a">
-    <meta name="msapplication-config" content="/icons/browserconfig.xml">
+    <meta name="msapplication-config" content="./icons/browserconfig.xml">
     <meta name="theme-color" content="#00324a">
 
     <title>|Quiénes Somos?|</title>
@@ -31,9 +31,10 @@
 
 <body class="body">
     <header>
+
         <!-- Con esto se implementa Bootstrap 4 en el nav de este archivo -->
         <nav class="navbar navbar-expand-lg bg-primary navbar-dark text text-white justify-content-between">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.php">
                 <img src="img/logo.svg" alt="logo" class="logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -43,10 +44,10 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="navlink" href="index.html">Inicio</a>
+                        <a class="navlink" href="index.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="navlink" href="login.html">Ingresar</a>
+                        <a class="navlink" href="login.php">Ingresar</a>
                         <!--Se agrega el acceso a la pagina de informacion-->
                     </li>
                     <li class="nav-item dropdown">
@@ -55,8 +56,8 @@
                             Registrarse
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="registro-usuario.html">Para mí</a></li>
-                            <li><a class="dropdown-item" href="registro-empresa.html">Para empresa</a></li>
+                            <li><a class="dropdown-item" href="registro-usuario.php">Para mí</a></li>
+                            <li><a class="dropdown-item" href="registro-empresa.php">Para empresa</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -64,13 +65,13 @@
         </nav>
     </header>
 
-    <div class="banner container-fluid FondoFotos">
-        <div class="mascara_fondo"></div>
-        <video class="bgvideo" src="video/bgbanner.mp4" autoplay loop muted></video>
-    </div>
-    
     <main>
-        <section>
+        <!-- Se implementa Bootstrap 4 en el section con container-fluid de este archivo -->
+        <section class="banner container-fluid FondoFotos">
+            <div class="mascara_fondo"> </div>
+            <video class="bgvideo" src="video/bgbanner.mp4" autoplay loop muted></video>
+        </section>
+        <Section>
             <div class="container-fluid title-container d-flex flex-column justify-content-start">
                 <br>
                 <h1 class="title">Quiénes Somos?</h1>
@@ -92,69 +93,79 @@
             </div>
 
 
-            <div class="overflow-auto container-fluid d-flex justify-content-center flex-wrap pt-5 pl-5">
-                <div class="card flex-column flex-sm-row col-lg-6">
-                    <img src="img/imagenes/andres.png" class="card-img-top imgRedonda" alt="Foto de Andres">
-                    <div class="card-body">
-                        <h5 class="card-title">Osmar Andres Debegnach</h5>
-                        <p class="card-text">Líder Técnico/Desarrollador</p>
-                        <a href="mailto:andresdebegnach@gmail.com" class="btn btn-primary">andresdebegnach@gmail.com</a>
+            <div class="container-fluid pt-5 pl-5">
+                <div class="row col-12 py-2">
+                    <div class="card col-6" style="width: 18rem;">
+                        <img src="img/imagenes/andres.png" class="card-img-top imgRedonda" alt="Foto de Andres">
+                        <div class="card-body">
+                            <h5 class="card-title">Osmar Andres Debegnach</h5>
+                            <p class="card-text">Líder Técnico/Desarrollador</p>
+                            <a href="mailto:andresdebegnach@gmail.com"
+                                class="btn btn-primary">andresdebegnach@gmail.com</a>
                         </div>
+                    </div>
+                    <div class="card col-6" style="width: 18rem;">
+                        <img src="img/imagenes/fede.png" class="card-img-top imgRedonda" alt="Foto de Federico">
+                        <div class="card-body">
+                            <h5 class="card-title"> Federico Navarro</h5>
+                            <p class="card-text">Project Manager / Desarrollador</p>
+                            <a href="mailto:fnavarromugas@gmail.com" class="btn btn-primary">fnavarromugas@gmail.com</a>
                         </div>
-                <div class="card flex-column flex-sm-row col-lg-6">
-                    <img src="img/imagenes/fede.png" class="card-img-top imgRedonda" alt="Foto de Federico">
-                    <div class="card-body">
-                        <h5 class="card-title"> Federico Navarro</h5>
-                        <p class="card-text">Project Manager / Desarrollador</p>
-                        <a href="mailto:fnavarromugas@gmail.com" class="btn btn-primary">fnavarromugas@gmail.com</a>
-                    </div>
-                    </div>
-                <div class="card flex-column flex-sm-row col-lg-6">
-                    <img src="img/imagenes/eri.png" class="card-img-top imgRedonda" alt="Foto de Erika">
-                    <div class="card-body">
-                        <h5 class="card-title">Erika Cologne</h5>
-                        <p class="card-text">Líder de Equipo/Desarrollador</p>
-                        <a href="mailto:erikac.ec80@gmail.com" class="btn btn-primary">erikac.ec80@gmail.com</a>
                     </div>
                 </div>
-                <div class="card flex-column flex-sm-row col-lg-6">
-                    <img src="img/imagenes/juli.jpg.png" class="card-img-top imgRedonda" alt="Foto de Julieta">
-                    <div class="card-body">
-                        <h5 class="card-title">Julieta de los Ángeles Negrete</h5>
-                        <p class="card-text">Analista Funcional/Desarrollador</p>
-                        <a href="mailto:juliinegrete@gmail.com" class="btn btn-primary">juliinegrete@gmail.com</a>
-                    </div>
-                    </div>
-                <div class="card flex-column flex-sm-row col-lg-6">
-                    <img src="img/imagenes/max.png" class="card-img-top imgRedonda" alt="Foto de Maximiliano">
-                    <div class="card-body">
-                        <h5 class="card-title">Maximiliano Escobar</h5>
-                        <p class="card-text">Desarrollador Full Stack</p>
-                        <a href="mailto:maxescobarubp@gmail.com" class="btn btn-primary">maxescobarubp@gmail.com</a>
-                    </div>
-                </div>
-                <div class="card flex-column flex-sm-row col-lg-6">
-                    <img src="img/imagenes/eze.png" class="card-img-top imgRedonda" alt="Foto de Ezequiel">
-                    <div class="card-body">
-                        <h5 class="card-title">Ezequiel Dominguez</h5>
-                        <p class="card-text">Desarrollador Full Stack.</p>
-                        <a href="mailto:ezequieldominguez1@hotmail.com" class="btn btn-primary">ezequieldominguez1@hotmail.com</a>
+                <div class="row col-12">
+                    <div class="card col-6" style="width: 18rem;">
+                        <img src="img/imagenes/eri.png" class="card-img-top imgRedonda" alt="Foto de Erika">
+                        <div class="card-body">
+                            <h5 class="card-title">Erika Cologne</h5>
+                            <p class="card-text">Líder de Equipo/Desarrollador</p>
+                            <a href="mailto:erikac.ec80@gmail.com" class="btn btn-primary">erikac.ec80@gmail.com</a>
                         </div>
                     </div>
-                <div class="card flex-column flex-sm-row col-lg-6">
-                    <img src="img/imagenes/ana.png" class="card-img-top imgRedonda" alt="Foto de Ana">
-                    <div class="card-body">
-                        <h5 class="card-title">Ana Ochonga</h5>
-                        <p class="card-text">Desarrollador Full Stack</p>
-                        <a href="mailto:dochongajvg@gmail.com" class="btn btn-primary">dochongajvg@gmail.com</a>
+                    <div class="card col-6" style="width: 18rem;">
+                        <img src="img/imagenes/juli.jpg.png" class="card-img-top imgRedonda" alt="Foto de Julieta">
+                        <div class="card-body">
+                            <h5 class="card-title">Julieta de los Ángeles Negrete</h5>
+                            <p class="card-text">Analista Funcional/Desarrollador</p>
+                            <a href="mailto:juliinegrete@gmail.com" class="btn btn-primary">juliinegrete@gmail.com</a>
+                        </div>
                     </div>
+                </div>
+                <div class="row col-12 py-2">
+                    <div class="card col-6" style="width: 18rem;">
+                        <img src="img/imagenes/max.png" class="card-img-top imgRedonda" alt="Foto de Maximiliano">
+                        <div class="card-body">
+                            <h5 class="card-title">Maximiliano Escobar</h5>
+                            <p class="card-text">Desarrollador Full Stack</p>
+                            <a href="mailto:maxescobarubp@gmail.com" class="btn btn-primary">maxescobarubp@gmail.com</a>
+                        </div>
                     </div>
+                    <div class="card col-6" style="width: 18rem;">
+                        <img src="img/imagenes/eze.png" class="card-img-top imgRedonda" alt="Foto de Ezequiel">
+                        <div class="card-body">
+                            <h5 class="card-title">Ezequiel Dominguez</h5>
+                            <p class="card-text">Desarrollador Full Stack.</p>
+                            <a href="mailto:ezequieldominguez1@hotmail.com"
+                                class="btn btn-primary">ezequieldominguez1@hotmail.com</a>
+                        </div>
                     </div>
-        </section>
+                </div>
+                <div class="row col-12">
+                    <div class="card col-6" style="width: 18rem;">
+                        <img src="img/imagenes/ana.png" class="card-img-top imgRedonda" alt="Foto de Ana">
+                        <div class="card-body">
+                            <h5 class="card-title">Ana Ochonga</h5>
+                            <p class="card-text">Desarrollador Full Stack</p>
+                            <a href="mailto:dochongajvg@gmail.com" class="btn btn-primary">dochongajvg@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Section>
     </main>
     <footer id="piePagina" class="container-fluid d-flex flex-column">
-        <div class="row d-flex flex-wrap justify-content-around">
-            <div class="form-container col-lg-4">
+        <div class="row d-flex justify-content-around">
+            <div class="form-container col-4">
                 <form id="formContacto" class="pb-5 pt-5 container no-gutters">
                     <legend>Contactanos</legend>
                     <div class="row">
@@ -212,7 +223,7 @@
                 </form>
             </div>
 
-            <div class="contact-info text-center col-lg-4 py-5">
+            <div class="contact-info col-4 py-5">
                 <h3 class="titulo">Informacion de contacto</h3>
 
                 <span><i class="icono-home"></i> Argentina, Cordoba, Cordoba</span>
@@ -227,7 +238,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-    <script src="js/countryDropdown.js"></script>
 
 
 </body>

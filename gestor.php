@@ -1,15 +1,47 @@
+<?php
+
+require_once './php/connectDataBase.php';
+
+
+session_start();
+
+
+if (!isset($_SESSION['user'])) {
+    header("Location: ./index.php");
+}
+$usuario = $_SESSION['user'];
+$idEmpresa = $usuario['idEmpresas'];
+
+$userName = "{$usuario['Nombre']}";
+
+if (strlen($userName) > 13) {
+    $userName = substr($userName, 0, 10);
+    $userName = "$userName...";
+}
+
+$sql = "SELECT * FROM Stock WHERE idEmpresa = {$usuario['idEmpresas']}";
+$res = $connection->query($sql);
+if ($res) {
+    $productos = $res->fetch_all();
+    console_log($productos);
+} else {
+    console_log("Error: " . $sql . "<br>" . mysqli_error($connection));
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
-    <link rel="manifest" href="/icons/site.webmanifest">
-    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#00324a">
-    <link rel="shortcut icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
+    <link rel="manifest" href="./icons/site.webmanifest">
+    <link rel="mask-icon" href="./icons/safari-pinned-tab.svg" color="#00324a">
+    <link rel="shortcut icon" href="./icons/favicon.ico">
     <meta name="msapplication-TileColor" content="#00324a">
-    <meta name="msapplication-config" content="/icons/browserconfig.xml">
+    <meta name="msapplication-config" content="./icons/browserconfig.xml">
     <meta name="theme-color" content="#00324a">
 
     <!-- implementacion de bibliotecas de bootstrap -->
@@ -82,15 +114,13 @@
                 <h2 class="titulo" id="titulo-seccion"></h2>
             </div>
             <div class="btn-group">
-                <button id="bt-usuario" class="user-info" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
+                <button id="bt-usuario" class="user-info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="img/user.png" alt="Foto de perfil del usuario">
-                    <span id="nombre-usuario">Usuario</span>
+                    <span id="nombre-usuario"><?php echo $userName; ?></span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="bt-usuario">
 
-                    <button class="dropdown-item" role="menuitem" tabindex="-1" data-toggle="modal"
-                        data-target="#modalCambioEmpleado">
+                    <button class="dropdown-item" role="menuitem" tabindex="-1" data-toggle="modal" data-target="#modalCambioEmpleado">
                         <i class="icono-change mr-1"></i>
                         Cambiar empleado
                     </button>
@@ -103,8 +133,7 @@
         </div>
 
         <!-- Modal Cambio de empleado-->
-        <div class="modal fade" id="modalCambioEmpleado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="modalCambioEmpleado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -126,8 +155,7 @@
         </div>
 
         <!-- Modal ingresar dinero a caja -->
-        <div class="modal fade" id="modalIngresarDinero" tabindex="-1" aria-labelledby="bt-ingresarDinero"
-            aria-hidden="true">
+        <div class="modal fade" id="modalIngresarDinero" tabindex="-1" aria-labelledby="bt-ingresarDinero" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -141,8 +169,7 @@
                             <span>Cantidad</span>
                             <div class="form-group input-container">
                                 <i class="icono-dinero"></i>
-                                <input class="form-control" type="email"
-                                    placeholder="Ingrese la cantidad de dinero a ingresar">
+                                <input class="form-control" type="email" placeholder="Ingrese la cantidad de dinero a ingresar">
                             </div>
 
                             <span>Razon</span>
@@ -161,8 +188,7 @@
         </div>
 
         <!-- Modal extraer dinero a caja -->
-        <div class="modal fade" id="modalExtraerDinero" tabindex="-1" aria-labelledby="bt-extraerDinero"
-            aria-hidden="true">
+        <div class="modal fade" id="modalExtraerDinero" tabindex="-1" aria-labelledby="bt-extraerDinero" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -176,15 +202,13 @@
                             <span>Cantidad</span>
                             <div class="form-group input-container">
                                 <i class="icono-dinero"></i>
-                                <input class="form-control" type="email"
-                                    placeholder="Ingrese la cantidad de dinero a extraer">
+                                <input class="form-control" type="email" placeholder="Ingrese la cantidad de dinero a extraer">
                             </div>
 
                             <span>Razon</span>
                             <div class="form-group input-container">
                                 <i class="icono-pregunta"></i>
-                                <input class="form-control" type="password"
-                                    placeholder="Ingrese la razon de la extraccion">
+                                <input class="form-control" type="password" placeholder="Ingrese la razon de la extraccion">
                             </div>
                         </form>
                     </div>
@@ -242,7 +266,7 @@
             <section id="ventas" class="tab-container" data-title="Ventas">
 
                 <div class="tablas row flex-wrap position-relative">
-                    <div class="col-12 col-lg-4 px-1 my-5 my-md-0">
+                    <div id="contenedor-tabla-venta" class="col-12 col-lg-4">
                         <div class="col-12">
                             <form name="buscador">
                                 <div class="buscador">
@@ -251,7 +275,7 @@
                                 </div>
                             </form>
                         </div>
-                        <table id="" class="table table-striped">
+                        <table id="tabla-stockVenta" class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>Código</th>
@@ -419,8 +443,8 @@
                         </table>
                     </div>
 
-                    <div class="col-12 col-lg-8 px-1">
-                        <table id="tabla-venta" class="table table-striped">
+                    <div id="contenedor-tabla-stockVenta" class="col-12 col-lg-8">
+                        <table id="tabla-venta" class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>Producto</th>
@@ -524,8 +548,7 @@
                         </table>
                     </div>
                 </div>
-                <div
-                    class="row controles-venta flex-column flex-lg-row p-2 justify-content-lg-between justify-content-md-center">
+                <div class="row controles-venta flex-column flex-lg-row p-2 justify-content-lg-between justify-content-md-center">
                     <label class="label-total-venta">Total: $600</label>
                     <button class="boton p-3" type="button" data-toggle="modal" data-target="#modal1">
                         Finalizar venta
@@ -536,6 +559,7 @@
 
             <section id="stock" class="tab-container" data-title="Stock">
                 <div class="tablas row flex-wrap position-relative">
+
                     <!-- Grid de objetos. -->
                     <div id="grid-productos" class="col-12 col-lg-8">
                         <div class="col-12">
@@ -555,54 +579,13 @@
                                     <th>Precio Unitario</th>
                                     <th>Unidad Medida</th>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>132485496</td>
-                                        <td>Coca Cola 1.5Lts</td>
-                                        <td>328</td>
-                                        <td>150</td>
-                                        <td>Unidad</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4567879</td>
-                                        <td>Fideos Canale Tirabuzón 500g</td>
-                                        <td>207</td>
-                                        <td>56</td>
-                                        <td>Unidad</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3213747695</td>
-                                        <td>Cuerda Cáñamo</td>
-                                        <td>760</td>
-                                        <td>30</td>
-                                        <td>Metro</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3246578721</td>
-                                        <td>Cable Coaxil 50mm diam.</td>
-                                        <td>200</td>
-                                        <td>50</td>
-                                        <td>Metro</td>
-                                    </tr>
-                                    <tr>
-                                        <td>54968754</td>
-                                        <td>Fernet Branca 1Lts</td>
-                                        <td>178</td>
-                                        <td>600</td>
-                                        <td>Unidad</td>
-                                    </tr>
-                                    <tr>
-                                        <td>13408749415</td>
-                                        <td>Maní confitado</td>
-                                        <td>220</td>
-                                        <td>75</td>
-                                        <td>Kg</td>
-                                    </tr>
-                                </tbody>
-                                </table>
-                                </div>
-                                <!-- Grid de adicionales. -->
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Grid de adicionales. -->
                     <div id="grid-adicionales" class="col-12 col-lg-4">
                         <table class="table table-striped table-hover table-sm">
                             <thead>
@@ -649,19 +632,16 @@
                 </div>
                 <div class="contenedorBotonesStock">
                     <!-- Boton ingresar producto. -->
-                    <button id="botonProducto" type="button" class="boton" data-toggle="modal"
-                        data-target="#modalProducto">
+                    <button id="botonProducto" type="button" class="boton" data-toggle="modal" data-target="#modalProducto">
                         Ingresar Producto
                     </button>
                     <!-- Boton ingresar adicional. -->
-                    <button id="botonAdicional" type="button" class="boton" data-toggle="modal"
-                        data-target="#modalAdicional">
+                    <button id="botonAdicional" type="button" class="boton" data-toggle="modal" data-target="#modalAdicional">
                         Ingresar Adicional
                     </button>
                 </div>
                 <!-- Modal Producto -->
-                <div class="modal fade" id="modalProducto" tabindex="-1" role="dialog"
-                    aria-labelledby="modalProductoTitle" aria-hidden="true">
+                <div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="modalProductoTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -689,17 +669,17 @@
                                             <span class="input-group-text" id="">Cantidad</span>
                                         </div>
                                         <input id="cantidad" name="cantidad" type="number" step="0.1" class="form-control" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="">$</span>
                                         </div>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="">$</span>
-                                            </div>
                                         <input id="precio" name="precio" type="number" step="0.01" class="form-control" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="">Medida</span>
                                         </div>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="">Medida</span>
-                                            </div>
                                         <select id="medida" name="medida" type="text" class="form-control" required>
                                             <option value="1">Unidades</option>
                                             <option value="2">Peso (Kg)</option>
@@ -709,14 +689,13 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary">Guardar cambios</button>
+                                <button type="button" class="btn btn-primary" onclick="agregarProducto(<?php $idEmpresa; ?>)">Guardar cambios</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Modal ingresar adicional-->
-                <div class="modal fade" id="modalAdicional" tabindex="-1" role="dialog"
-                    aria-labelledby="modalAdicionalTitle" aria-hidden="true">
+                <div class="modal fade" id="modalAdicional" tabindex="-1" role="dialog" aria-labelledby="modalAdicionalTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -749,50 +728,58 @@
             </section>
 
             <section id="caja" class="tab-container" data-title="Caja">
-                <div class="contenedor-sombra d-flex flex-wrap">
-                    <div class="col-md-6 my-3">
-                        <label>Dinero en caja - Apertura:</label>
-                        <input class="input-caja" type="number" placeholder="cantidad de dinero" onchange="sumar(this.value);">
-                        </div>
-
-                    <div class="col-md-6 my-3">
-                        <label>Dinero en caja - Cierre:</label>
-                        <input class="input-caja" type="number" placeholder="cantidad de dinero" onchange="restar(this.value);">
-                    </div>
-
-                    <div class="col-md-6 my-3">
-                        <label>Efectivo recibido:</label>
-                        <input class="input-caja" type="number" placeholder="apertura de caja" onchange="sumar(this.value);">
-                        </div>
-
-                    <div class="col-md-6 my-3">
-                        <label>Pago a proveedores:</label>
-                        <input class="input-caja" type="number" placeholder="dinero" onchange="restar(this.value);">
-                    </div>
-
-                    <div class="col-md-6 my-3">
-                        <label>Débito/Crédito recibido:</label>
-                        <input class="input-caja" type="number" placeholder="cantidad de dinero" onchange="sumar(this.value);">
-                        </div>
-
-                    <div class="col-md-6 my-3">
-                        <label>Sueldos o bonos:</label>
-                        <input class="input-caja" type="number" placeholder="efectivo - docs" onchange="restar(this.value);">
-                    </div>
-
-                    <div class="col-md-6 my-3">
-                        <label>Dinero depositado:</label>
-                        <input class="input-caja" type="number" placeholder="depositado" onchange="sumar(this.value);">
-                    </div>
-
-                    <div class="col-md-6 my-3">
-                        <label>Dinero extraído:</label>
-                        <input class="input-caja" type="number" placeholder="extraido" onchange="restar(this.value);">
-                    </div>
-
-                    <div class="recaudacion-boton d-flex flex-column flex-md-row">
+                <div class="contenedor-sombra">
+                    <div class="columnas">
                         <div>
-                            <h2 class="titulo-recaudacion">Recaudacion Total</h2>
+                            <label>Dinero en caja - Apertura:</label>
+                            <input class="input-caja" type="number" placeholder="cantidad de dinero" onchange="sumar(this.value);">
+                        </div>
+
+                        <div>
+                            <label>Dinero en caja - Cierre:</label>
+                            <input class="input-caja" type="number" placeholder="cantidad de dinero" onchange="restar(this.value);">
+                        </div>
+                    </div>
+
+                    <div class="columnas">
+                        <div>
+                            <label>Efectivo recibido:</label>
+                            <input class="input-caja" type="number" placeholder="apertura de caja" onchange="sumar(this.value);">
+                        </div>
+
+                        <div>
+                            <label>Pago a proveedores:</label>
+                            <input class="input-caja" type="number" placeholder="dinero" onchange="restar(this.value);">
+                        </div>
+                    </div>
+
+                    <div class="columnas">
+                        <div>
+                            <label>Débito/Crédito recibido:</label>
+                            <input class="input-caja" type="number" placeholder="cantidad de dinero" onchange="sumar(this.value);">
+                        </div>
+
+                        <div>
+                            <label>Sueldos o bonos:</label>
+                            <input class="input-caja" type="number" placeholder="efectivo - docs" onchange="restar(this.value);">
+                        </div>
+                    </div>
+
+                    <div class="columnas">
+                        <div>
+                            <label>Dinero depositado:</label>
+                            <input class="input-caja" type="number" placeholder="depositado" onchange="sumar(this.value);">
+                        </div>
+
+                        <div>
+                            <label>Dinero extraído:</label>
+                            <input class="input-caja" type="number" placeholder="extraido" onchange="restar(this.value);">
+                        </div>
+                    </div>
+
+                    <div class="recaudacion-boton">
+                        <div>
+                            <h2>Recaudacion Total</h2>
                             <h2>$ <span id="Recaudacion"></span></h2>
                         </div>
                         <div>
@@ -840,10 +827,8 @@
                     </div>
                 </div>
                 <div class="d-flex mt-4 ml-4">
-                    <button id="bt-ingresarDinero" class="boton mb-3 mr-3" data-toggle="modal"
-                        data-target="#modalIngresarDinero">Ingresar dinero a caja</button>
-                    <button id="bt-extraerDinero" class="boton mb-3" data-toggle="modal"
-                        data-target="#modalExtraerDinero">Extraer dinero de caja</button>
+                    <button id="bt-ingresarDinero" class="boton mb-3 mr-3" data-toggle="modal" data-target="#modalIngresarDinero">Ingresar dinero a caja</button>
+                    <button id="bt-extraerDinero" class="boton mb-3" data-toggle="modal" data-target="#modalExtraerDinero">Extraer dinero de caja</button>
                 </div>
 
 
@@ -852,9 +837,16 @@
     </main>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js'></script>
-    <script src="js/graficos-administracion.js"></script>
-    <script src="js/sideNavController.js"></script>
-    <script src="js/funcionesGrupo99.js"></script>
+    <script src="./js/graficos-administracion.js"></script>
+    <script src="./js/sideNavController.js"></script>
+    <script src="./js/funcionesGrupo99.js"></script>
+    <script src="./js/claseProducto.js"></script>
+    <script src="./js/app.js"></script>
+
+    <?php
+    $p = json_encode($productos, JSON_HEX_TAG);
+    echo "<script> initApp($p); </script>";
+    ?>
 </body>
 
 </html>

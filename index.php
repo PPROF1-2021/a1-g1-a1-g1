@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="aapple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
-  <link rel="manifest" href="/icons/site.webmanifest">
-  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#00324a">
-  <link rel="shortcut icon" href="/icons/favicon.ico">
+  <link rel="aapple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
+  <link rel="manifest" href="./icons/site.webmanifest">
+  <link rel="mask-icon" href="./icons/safari-pinned-tab.svg" color="#00324a">
+  <link rel="shortcut icon" href="./icons/favicon.ico">
 
   <!-- implementacion de bibliotecas de bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -34,7 +34,7 @@
 
     <!-- Con esto se implementa Bootstrap 4 en el nav de este archivo -->
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark text text-white">
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="index.php">
         <img src="img/logo.svg" alt="logo" class="logo">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -44,10 +44,11 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="navlink" href="pag_info.html">Quiénes Somos?</a> <!--Se agrega el acceso a la pagina de informacion-->
+            <!--Se agrega el acceso a la pagina de informacion-->
+            <a class="navlink" href="pag_info.php">Quiénes Somos?</a>
           </li>
           <li class="nav-item">
-            <a class="navlink" href="login.html">Ingresar</a>
+            <a class="navlink" href="login.php">Ingresar</a>
           </li>
 
           <li class="nav-item dropdown">
@@ -55,9 +56,9 @@
               aria-expanded="false">
               Registrarse
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="registro-usuario.html">Para mí</a></li>
-              <li><a class="dropdown-item" href="registro-empresa.html">Para empresa</a></li>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="registro-usuario.php">Para mí</a></li>
+              <li><a class="dropdown-item" href="registro-empresa.php">Para empresa</a></li>
             </ul>
           </li>
         </ul>
@@ -77,8 +78,8 @@
   </main>
 
   <footer id="piePagina" class="container-fluid d-flex flex-column">
-    <div class="row d-flex flex-wrap justify-content-around">
-      <div class="form-container col-lg-4">
+    <div class="row d-flex justify-content-around">
+      <div class="form-container col-4">
         <form id="formContacto" class="pb-5 pt-5 container no-gutters">
           <legend>Contactanos</legend>
           <div class="row">
@@ -135,7 +136,7 @@
         </form>
       </div>
 
-      <div class="contact-info col-lg-4 py-5 text-center">
+      <div class="contact-info col-4 py-5">
         <h3 class="titulo">Informacion de contacto</h3>
 
         <span><i class="icono-home"></i> Argentina, Cordoba, Cordoba</span>
